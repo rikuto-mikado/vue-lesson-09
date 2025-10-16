@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -19,18 +19,32 @@
     <section id="assignment">
       <!-- 1) Fetch the user input and use it as a CSS class -->
       <!-- The entered class should be added to the below paragraph -->
-      <input type="text" />
+      <!-- v-model is shorthand for :value="inputClass" @input="inputClass = $event.target.value" -->
+      <!-- It creates two-way data binding between the input field and the data property -->
+      <input type="text" v-model="inputClass" />
       <!-- (available classes: "user1", "user2") -->
-      <p>
+      <!-- :class is shorthand for v-bind:class -->
+      <!-- It dynamically binds the value of inputClass to the element's class attribute -->
+      <!-- Alternative object syntax: :class="{ user1: inputClass === 'user1', user2: inputClass === 'user2' }" -->
+      <!-- The object keys are class names, and the values are boolean expressions -->
+      <!-- Using computed property 'paragraphClasses' to manage multiple dynamic classes -->
+      <!-- This is cleaner than inline object syntax when logic is complex -->
+      <p :class="paragraphClasses">
         Style me!
       </p>
-      <button>Toggle Paragraph</button>
+      <!-- @click is shorthand for v-on:click -->
+      <!-- It calls the toggleParagraphVisibility method when the button is clicked -->
+      <button @click="toggleParagraphVisibility">Toggle Paragraph</button>
       <!-- 2) Use the "visible" and "hidden" classes to show/ hide the above paragraph -->
       <!-- Clicking the button should toggle between the two options -->
 
       <!-- 3) Add dynamic inline styling to the below paragraph and let the user enter a background-color -->
-      <input type="text" />
-      <p>Style me inline!</p>
+      <!-- v-model binds the input value to inputBackgroundColor -->
+      <input type="text" v-model="inputBackgroundColor" />
+      <!-- :style is shorthand for v-bind:style -->
+      <!-- It applies inline styles dynamically using an object syntax -->
+      <!-- Object keys are CSS properties in camelCase (backgroundColor), values are reactive data -->
+      <p :style="{backgroundColor: inputBackgroundColor}">Style me inline!</p>
     </section>
   </body>
 </html>
